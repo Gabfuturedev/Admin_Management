@@ -1,0 +1,114 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}.main-container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}body{
+    background-image: linear-gradient(#FFE08F, #DEC4AC);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    /* background-image: linear-gradient(#FFE08F, #DEC4AC); */
+}
+.vertical-nav, form{
+    width: 5%;
+    height: 100%; 
+    background-image: linear-gradient(#FFE08F, #DEC4AC); 
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: space-between; 
+     padding: 5%;
+}
+.nav-item{
+    text-align: center;
+    margin: 10px 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    border-radius: 50%;
+    text-decoration: none;
+    position: relative;
+     
+    
+}.nav-item i{
+    font-size: 20px;
+    background-image: linear-gradient(45deg, #f7eb73, #f7a873);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+   
+}
+.nav-logo{
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+    
+   
+}.tooltip {
+    position: absolute;
+    left: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    opacity: 0;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.nav-item:hover .tooltip {
+    opacity: 1;
+}
+.logo-container{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 1%;
+    background-color: white;
+    padding-left: 14px;
+    border-radius: 10px;
+    margin-top:2%;
+}
+.logo{
+    width: 100%;
+    height: 100%;
+    font-weight: 600;
+    font-size: 30px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    color: #333;
+    font-size: 2em;
+}.logo2{
+    background: url(grass.jpg);
+    background-size: contain;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    width: 100%;
+    height: 100%;
+    font-size: 0.8em;
+    
+}
+/* CSS for smaller screens */
+

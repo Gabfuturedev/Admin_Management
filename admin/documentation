@@ -1,0 +1,62 @@
+index.php -- eto yung parang mainpage
+Pages(Folder) -- dito nakalagay yung mga iinclude sa may index.php
+Ajax(Folder) -- dito nakalagay yung mga actions sa mga page 
+
+announcementDB -- database ng announcementDB
+announcement -- table ng announcement
+o -- pending
+1 -- published
+2 -- archived or deleted
+
+dashboard.php -- 
+user - db
+users - table
+admin - table for admin acc test db
+
+hindi pa naka ajax yung pag update ng profile 
+
+user table 
+0 - student
+1 - intructor
+2 - applicant
+
+user.php
+in applicantion page is not fully done
+database is not yet finalized its only displaying the data in the tab
+
+
+--dashboard when the screen size is gets smaller the content will be in a column
+and the navbar in index.php will be in hamburger menu
+
+
+monitor_vids.php
+0 -- undermonitoring
+1 -- checked
+3 -- warning
+
+website flow
+login -> index.php -- in this page all the other php page are included
+
+index.php
+dashboard.php
+user.php
+jobs.php
+announcement.php
+monitor_vids.php
+settings.php
+logout.php
+
+database information
+name of the database : AnnouncementDB -- use in all of the pages exept in dashboard.php
+tables:
+
+announcement -- announcement informations
+
+admins -- this table contains the admin accounts and the ip login activity
+
+name of the table: user 
+table: users
+users-- user information (0-student, 1-instructor, 2-applicant)
+
+
+
