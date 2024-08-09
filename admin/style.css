@@ -10,6 +10,7 @@
     justify-content: center;
     align-items: center;
     
+    
 }body{
     background-image: linear-gradient(#FFE08F, #DEC4AC);
     background-attachment: fixed;
@@ -24,7 +25,7 @@
 .vertical-nav, form{
     width: 5%;
     height: 100%; 
-    background-image: linear-gradient(#FFE08F, #DEC4AC); 
+    background-color:#FFE08F ;
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -34,8 +35,8 @@
 .nav-item{
     text-align: center;
     margin: 10px 0;
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,7 +47,7 @@
      
     
 }.nav-item i{
-    font-size: 20px;
+    font-size: 30px;
     background-image: linear-gradient(45deg, #f7eb73, #f7a873);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
