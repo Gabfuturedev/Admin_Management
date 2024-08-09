@@ -158,7 +158,19 @@ mysqli_close($announcement_con);
     border-radius: 20px;
     padding: 20px;
     word-wrap: break-word; /* Ensure long words wrap */
-}.announcement-board{
+}.publish-box{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    /* /* justify-content: space-between; */
+    gap: 10px; 
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    word-wrap: break-word; /* Ensure long words wrap */
+}
+.announcement-board{
     width: 80%;
     min-height: 800px; /* Limit width for better readability */
     border-radius: 10px;
@@ -178,7 +190,7 @@ mysqli_close($announcement_con);
     /* gap: 10px; */
     
 }img{
-    max-width: 100%;
+    max-width: 90%;
     max-height: 70%;
     object-fit: cover;
     border-radius: 10px;
@@ -333,7 +345,7 @@ $announcement_result = mysqli_query($announcement_con, $announcement_query);
 
 if (mysqli_num_rows($announcement_result) > 0) {
     while ($row = mysqli_fetch_assoc($announcement_result)) {
-        echo "<div class='announcement-box' data-id='" . $row['id'] . "' data-title='" . $row['title'] . "' data-content='" . $row['announcement_content'] . "' data-date='" . $row['date'] . "' data-image='" . (!empty($row['image_path']) ? './image/' . basename($row['image_path']) : '') . "'>";
+        echo "<div class='publish-box' data-id='" . $row['id'] . "' data-title='" . $row['title'] . "' data-content='" . $row['announcement_content'] . "' data-date='" . $row['date'] . "' data-image='" . (!empty($row['image_path']) ? './image/' . basename($row['image_path']) : '') . "'>";
         echo "<p class='announcement-date'><strong>Date:</strong> " . $row['date'] . "</p>";
         echo "<h3 class='announcement-title'>" . $row['title'] . "</h3>";
         echo "<p>" . $row['announcement_content'] . "</p>";
@@ -435,7 +447,7 @@ mysqli_close($announcement_con);
                 </div>
                 <p><strong>Date:</strong> ${date}</p>
                 <div class="action-buttons">
-                    <button class="swal2-confirm" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="publishAnnouncement(${id})">Publish</button>
+                      <button class="swal2-confirm" style="background-color: #4CAF50; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="publishAnnouncement(${id})">Publish</button>
                     <button class="swal2-cancel" style="background-color: #d33; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="deleteAnnouncement(${id})">Delete</button>
                 </div>`,
             showConfirmButton: false,
@@ -443,7 +455,31 @@ mysqli_close($announcement_con);
         });
     });
 });
+document.querySelectorAll('.publish-box').forEach(box => {
+    box.addEventListener('click', function() {
+        const id = this.getAttribute('data-id');
+        const title = this.getAttribute('data-title');
+        const content = this.getAttribute('data-content');
+        const date = this.getAttribute('data-date');
+        const image = this.getAttribute('data-image');
 
+        Swal.fire({
+            title: title,
+            html: `
+                <div style="border: 1px solid #ccc; padding: 20px; border-radius: 20px;">
+                    ${image ? `<img src="${image}" alt="Announcement Image" style="max-width: 100%; height: auto; margin-bottom: 10px;" />` : ''}
+                    <p>${content}</p>
+                </div>
+                <p><strong>Date:</strong> ${date}</p>
+                <div class="action-buttons">
+                    
+                    <button class="swal2-cancel" style="background-color: #d33; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;" onclick="deleteAnnouncement(${id})">Delete</button>
+                </div>`,
+            showConfirmButton: false,
+            showCancelButton: false,
+        });
+    });
+});
         function publishAnnouncement(id) {
             fetch('Ajax/publish_announcement.php', {
                 method: 'POST',
