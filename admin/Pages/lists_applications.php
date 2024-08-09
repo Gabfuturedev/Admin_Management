@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Fetch all applications
-$sql = "SELECT * FROM contbl";
+$sql = "SELECT * FROM contbl where status = 0";
 $result = $conn->query($sql);
 ?>
 
@@ -28,14 +28,12 @@ $result = $conn->query($sql);
             width: 90%;
             margin: auto;
             margin-top: 20px;
-        
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-           
         }
 
         th, td {
@@ -49,17 +47,16 @@ $result = $conn->query($sql);
             background-color: #f2f2f2;
         }
 
-        /* Responsive styles for table */
         @media (max-width: 768px) {
             .applicant-container{
                 margin-top: 20px;
-            display: flex;
-            flex-direction: column;
-            margin-top: 20px;
-            margin-bottom: 20px; 
-            overflow: auto;
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 20px; 
+                overflow: auto;
             }
-                table {
+
+            table {
                 border: 0;
             }
 
@@ -100,13 +97,12 @@ $result = $conn->query($sql);
             }
         }
 
-        /* Modal styles */
         .modal {
             display: none;
             position: fixed;
             z-index: 1;
             left: 0;
-            top: 0%;
+            top: 0;
             width: 100%;
             height: 100%;
             overflow: auto;
@@ -119,7 +115,6 @@ $result = $conn->query($sql);
             border: 1px solid #888;
             width: 80%;
             background-color: white;
-            
         }
 
         .close {
@@ -136,12 +131,14 @@ $result = $conn->query($sql);
             cursor: pointer;
         }
     </style>
+
+    <!-- Include SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
     <div class="applicant-container">
         <h2 style="text-align: center;">List of Applications</h2>
 
-        <!-- Table View -->
         <table>
             <thead>
                 <tr>
@@ -186,10 +183,10 @@ $result = $conn->query($sql);
                         echo "<td data-label='Picture'><a href='#' onclick='openModal(\"" . $row["picture"] . "\")'>View</a></td>";
                         echo "<td data-label='Valid ID'><a href='#' onclick='openModal(\"" . $row["valId"] . "\")'>View</a></td>";
                         echo "<td data-label='Date'>" . $row["date"] . "</td>";
-                        echo "<td data-label='Status'>" . $status . "</td>";
+                        echo "<td data-label='Status' id='status_" . $row["id"] . "'>" . $status . "</td>";
                         echo "<td data-label='Action'>
-                            <a href='update_application_status.php?id=" . $row["id"] . "&status=1'>Approve</a> | 
-                            <a href='update_application_status.php?id=" . $row["id"] . "&status=2'>Reject</a>
+                            <a href='#' onclick='confirmAction(" . $row["id"] . ", 1)'>Approve</a> | 
+                            <a href='#' onclick='confirmAction(" . $row["id"] . ", 2)'>Reject</a>
                         </td>";
                         echo "</tr>";
                     }
@@ -201,7 +198,6 @@ $result = $conn->query($sql);
         </table>
     </div>
 
-    <!-- Modal Structure -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -223,6 +219,37 @@ $result = $conn->query($sql);
             if (event.target == document.getElementById("myModal")) {
                 closeModal();
             }
+        }
+
+        function confirmAction(id, status) {
+            const statusText = status === 1 ? 'approve' : 'reject';
+            Swal.fire({
+                title: 'Are you sure?',
+                text: `Do you want to ${statusText} this application?`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: `Yes, ${statusText} it!`,
+                cancelButtonText: 'No, cancel'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // If confirmed, send an AJAX request to update the status
+                    updateStatus(id, status);
+                }
+            });
+        }
+
+        function updateStatus(id, status) {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "Pages/update_application_status.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Update the status in the table without reloading
+                    const statusText = status === 1 ? 'Approved' : 'Rejected';
+                    document.getElementById(`status_${id}`).innerText = statusText;
+                }
+            };
+            xhr.send(`id=${id}&status=${status}`);
         }
     </script>
 </body>

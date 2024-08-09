@@ -96,7 +96,19 @@ $conn->close();
     border-bottom: 2px solid black;
     font-weight: bold;
 }
-
+.login-activity-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    .login-activity-table td {
+        padding: 5px;
+        border: 1px solid #ddd;
+    }
+    .login-activity-table td:first-child {
+        font-weight: bold;
+        background-color: #f4f4f4;
+    }
 .setting-content {
     display: none;
 }
@@ -160,6 +172,18 @@ $conn->close();
     font-size: 14px;
     background-color: white;
     color: black;
+}@media (max-width: 768px) {
+    .setting-content.active{
+        padding: 10px;
+        display: flex;
+        flex-direction: column; 
+        word-break: break-all; 
+        
+        
+         
+    }#login-activity-content{
+              
+    }
 }
 </style>
 <body>
@@ -205,14 +229,14 @@ $conn->close();
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
 
-                    echo "<div class='login-activity-item'>";
-                    echo "<p><strong>Admin ID:</strong> " . $row['id'] . "</p>";
-                    echo "<p><strong>User ID:</strong> " . $row['username'] . "</p>";
-                    // echo "<p><strong>Password:</strong> " . $row['password'] . "</p>";
-                    echo "<p><strong>ip</strong> " . $row['ip_address'] . "</p>";
-                    echo "<p><strong>login time</strong> " . $row['login_time'] . "</p>";
-                    echo "<hr>";
-                    echo "</div>";
+                    echo "<table class='login-activity-table'>";
+                    echo "<tr><td><strong>Admin ID:</strong></td><td>" . $row['id'] . "</td></tr>";
+                    echo "<tr><td><strong>User ID:</strong></td><td>" . $row['username'] . "</td></tr>";
+                    // echo "<tr><td><strong>Password:</strong></td><td>" . $row['password'] . "</td></tr>";
+                    echo "<tr><td><strong>IP Address:</strong></td><td>" . $row['ip_address'] . "</td></tr>";
+                    echo "<tr><td><strong>Login Time:</strong></td><td>" . $row['login_time'] . "</td></tr>";
+                    echo "</table>";
+                    
                 }
             } else {
                 echo "No login activity found.";

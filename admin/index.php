@@ -33,7 +33,7 @@
     align-items: center; 
     justify-content: space-between; 
      padding: 5%;
-     background-image: linear-gradient(#FFE08F, #DEC4AC);
+     /* background-image: linear-gradient(#FFE08F, #DEC4AC); */
      
 }
   .nav-item{

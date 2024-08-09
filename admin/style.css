@@ -20,12 +20,12 @@
     width: 100%;
     height: 100vh;
     display: flex;
-    /* background-image: linear-gradient(#FFE08F, #DEC4AC); */
+
 }
 .vertical-nav, form{
     width: 5%;
     height: 100%; 
-    background-color:#FFE08F ;
+   
     display: flex;
     flex-direction: column;
     align-items: center; 

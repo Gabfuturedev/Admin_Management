@@ -51,6 +51,7 @@ $totalprofessor = $rowprofessor["total_professor"];
     gap: 10%;
     margin-top: 5%;
     font-family: Arial, Helvetica, sans-serif;
+   
     
 }.dashboard{
     width: 100%;
@@ -68,19 +69,20 @@ $totalprofessor = $rowprofessor["total_professor"];
     flex-direction: row;
     /* background-color: wheat; */
 }.graph1,.graph2{
-    width: 48%;
+    width: auto;
     height: 300px;
     background-color: white;
     /* border: 1px solid black; */
     border-radius: 10px;
-    justify-content: space-between;
-    gap:2%;
+    /* justify-content: space-between; */
+    display: flex;
+    margin: 10%;
     box-shadow: 0 10px 10px rgba(0,0,0,0.25) ;
 }.user-container{
-    width: 50%;
+    width: 100%;
     height: 50%;
     display: grid;
-    grid-template-columns: 1fr 1fr ;
+    grid-template-columns: repeat(4, 1fr); ;
     justify-content: space-between;
     flex-direction: row;
     /* background-color: wheat; */
@@ -120,56 +122,6 @@ $totalprofessor = $rowprofessor["total_professor"];
     display: flex;
     flex-direction: row;
     margin-bottom: 2%;
-}.box1,.box2{
-    width: 50%;
-    height: 100%;
-    /* background-color: white;
-    border: 1px solid black; */
-    border-radius: 10px;
-    justify-content: space-between;
-    gap:2%;
-    border-radius: 10px;
-    /* border: 1px solid black; */
-    background-color: white;
-    box-shadow: 0 10px 10px rgba(0,0,0,0.25) ;
-    padding: 3%;
-    
-}.box5{
-    width: 100%;
-    height: 720px;
-    /* background-color: white;
-    border: 1px solid black; */
-    border-radius: 10px;
-    justify-content: space-between;
-    gap:2%;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 10px 10px rgba(0,0,0,0.25) ;
-    padding: 3%;
-}.box3,.box4{
-    width: 50%;
-    height: 50%;
-    /* background-color: white;
-    border: 1px solid black; */
-    border-radius: 10px;
-    justify-content: space-between;
-    margin-top: 2%;
-    border-radius: 10px;
-    background-color: white;
-    box-shadow: 0 10px 10px rgba(0,0,0,0.25) ;
-    padding: 3%;
-}.row2{
-    width: 100%;
-    height: 100%;
-    /* background-color: white;
-    border: 1px solid black; */
-    border-radius: 10px;
-    justify-content: space-between;
-    gap:2%;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-
 }.chart-btn{
     display: flex;
     justify-content: center;
@@ -270,7 +222,7 @@ $totalprofessor = $rowprofessor["total_professor"];
         gap: 10px;
         /* background-color: wheat; */
     }.graph1,.graph2{
-        width: 100%;
+        width: auto;
         height: 130px;
         display: flex;
         flex-direction: column;
@@ -352,25 +304,8 @@ $totalprofessor = $rowprofessor["total_professor"];
 
     <div class="dashboard">
        
-        <!-- graph of users -->
-        <div class="graph-container">
-            <div class="graph1">
-            <canvas id="chart1"></canvas>
-              <div class="chart-btn-container">
-              <button class="chart-btn" class="chart-btn-active" >7days</button>
-               <button class="chart-btn">30days</button>
-               <button class="chart-btn">1year</button>
-              </div>
-            </div>
-            <div class="graph2">
-            <canvas id="chart2"></canvas>
-            <div class="chart-btn-container">
-              <button class="chart-btn" class="chart-btn-active" >7days</button>
-               <button class="chart-btn">30days</button>
-               <button class="chart-btn">1year</button>
-              </div>
-            </div>
-        </div>
+        
+     
 
         <!-- number of users -->
         <div class="user-container" >
@@ -408,42 +343,27 @@ $totalprofessor = $rowprofessor["total_professor"];
 
         
     </div>
-        <h1 class="heading1">Announcement</h1>
+        <h1 class="heading1">Graph</h1>
         <div class="announcement-container">
-       
-    <?php 
-    $announcement_con = mysqli_connect("localhost", "root", "", "announcementDB");
-    $sql = "SELECT * FROM announcement WHERE Status = 1 ORDER BY date DESC";
-    $result = mysqli_query($announcement_con, $sql);
-
-    // Counter for boxes
-    $boxIndex = 0;
-
-    while ($row = mysqli_fetch_assoc($result)) {
-        $id = htmlspecialchars($row['id']);
-        $title = htmlspecialchars($row['title']);
-        $announcement = htmlspecialchars($row['announcement_content']);
-        $date = htmlspecialchars($row['date']);
-        $image_path = !empty($row['image_path']) ? './image/' . basename($row['image_path']) : '';
-
-        // Generate announcement HTML
-        echo "<div class='announcement' onclick='showAnnouncement(\"$id\", \"$title\", \"$announcement\", \"$date\", \"$image_path\")'>
-                <h1>$title</h1>
-                <p><strong>Date:</strong> $date</p>
-                <p>$announcement</p>";
-        if ($image_path) {
-            echo "<img src='$image_path' alt='Announcement Image' class='announcement-image' />";
-        }
-        echo "</div>";
-
-        $boxIndex++;
-        if ($boxIndex >= 6) {
-            break; // Limit to 6 announcements
-        }
-    }
-
-    mysqli_close($announcement_con);
-    ?>
+            <!-- graph of users -->
+        <div class="graph-container">
+            <div class="graph1">
+            <canvas id="chart1"></canvas>
+              <div class="chart-btn-container">
+              <!-- <button class="chart-btn" class="chart-btn-active" >7days</button>
+               <button class="chart-btn">30days</button>
+               <button class="chart-btn">1year</button> -->
+              </div>
+            </div>
+            <div class="graph2">
+            <canvas id="chart2"></canvas>
+            <div class="chart-btn-container">
+              <!-- <button class="chart-btn" class="chart-btn-active" >7days</button>
+               <button class="chart-btn">30days</button>
+               <button class="chart-btn">1year</button> -->
+              </div>
+            </div>
+        </div>
 </div>
 
        
